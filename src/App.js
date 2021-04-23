@@ -1,9 +1,13 @@
 import React from "react";
 import Search from "./components/Search/Searchbox";
+import Header from "./components/Header/Header";
 
 function App() {
   return (
-    <Search />
+    <div>
+      <Header />
+      <Search />
+    </div>
   );
 }
 
