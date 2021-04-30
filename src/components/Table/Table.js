@@ -5,6 +5,7 @@ import API from "../utils/Api";
 class Table extends Component {
     //setting the default state
     state = {
+        image: "",
         first: "",
         last: "",
         email: "",
@@ -23,6 +24,7 @@ class Table extends Component {
             .then(res => {
                 console.log(res);
                 this.setState({
+                    image: res.data.results[0].picture.thumbnail,
                     first: res.data.results[0].name.first,
                     last: res.data.results[0].name.last,
                     email: res.data.results[0].email,
@@ -40,7 +42,7 @@ class Table extends Component {
                 <table className="table">
                     <thead>
                         <tr>
-                            <th scope="col">#</th>
+                            <th scope="col">Image</th>
                             <th scope="col">First</th>
                             <th scope="col">Last</th>
                             <th scope="col">Email</th>
@@ -50,23 +52,12 @@ class Table extends Component {
                     </thead>
                     <tbody>
                         <tr>
-                            <th scope="row">1</th>
+                            <td><img src={this.state.image}></img></td>
                             <td>{this.state.first}</td>
                             <td>{this.state.last}</td>
                             <td>{this.state.email}</td>
                             <td>{this.state.phone}</td>
                             <td>{this.state.dob}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td colSpan="2">Larry the Bird</td>
-                            <td>@twitter</td>
                         </tr>
                     </tbody>
                 </table>
