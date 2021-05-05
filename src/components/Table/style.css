@@ -1,0 +1,24 @@
+#nameBtn {
+ background-color: blueviolet; 
+ border: none; 
+ font-weight: bold;
+ font-size: 20px;
+ font-family: Arial, Helvetica, sans-serif;
+}
+
+#table {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+th {
+ font-size: 20px;
+ font-family: Arial, Helvetica, sans-serif;
+ border: 1px;
+ border-color: black;
+ border-style: solid;
+ text-align: center;
+ padding-right: 15%;
+ background-color: blueviolet;
+}

@@ -3,7 +3,7 @@ import "./style.css";
 
 function Searchbox(props) {
     return (
-        <div className="Searchbox">
+        <div className="Searchbox" id="searchBox">
             <form className="d-flex">
                 <input className="form-control me-2" type="search" placeholder="Search By Name" aria-label="Search"
                     value={props.search}

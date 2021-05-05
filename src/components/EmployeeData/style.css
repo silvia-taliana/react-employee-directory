@@ -1,0 +1,7 @@
+td {
+    border: black;
+    border-style: solid;
+    border-width: 1px;
+    text-align: center;
+    padding: 5px;
+}

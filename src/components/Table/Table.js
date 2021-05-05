@@ -3,7 +3,7 @@ import API from "../utils/Api";
 import EmployeeData from "../EmployeeData/EmployeeData";
 import Search from "../Search/Searchbox";
 // import SearchResult from "../SearchResult/SearchResult";
-// import "./style.css";
+import "./style.css";
 
 class Table extends Component {
     //setting the default state
@@ -21,47 +21,42 @@ class Table extends Component {
 
     // starts the loadEmployees function when the page loads
     componentDidMount() {
-        this.loadEmployees();
+        API.getAllEmployees()
+            .then(res => {
+                console.log(res);
+                this.loadEmployees(res);
+            })
+            .catch(err => console.log(err));
     }
 
     // function to call required data from the api
-    loadEmployees() {
+    loadEmployees(res, searchedEmployee) {
+        console.log(searchedEmployee);
+        console.log(res);
         if (this.state.isFiltered === true) {
-            API.getAllEmployees()
-                .then(res => {
-                    console.log(res.data.results);
-
-                    let employees = res.data.results.map(employee => {
-                        return employee.name;
-                    });
-                    const employee = employees.filter(function (name) {
-                        return name.first === this.state.search.toLowerCase();
-                    });
-                    return employee;
-                })
-                .then(
-                    console.log(res),
-                    this.setState({ employees: employee })
-                )
-                .catch(err => console.log(err));
+            const filteredEmployee = res.data.results.filter(function (employee) {
+                console.log(employee.name.first);
+                console.log(searchedEmployee);
+                return (employee.name.first.toLowerCase() === searchedEmployee.toLowerCase());
+            });
+            console.log(filteredEmployee);
+            // return filteredEmployee;
+            this.setState({ employees: filteredEmployee });
         }
         else {
-            API.getAllEmployees()
-                .then(res => {
-                    this.setState({ employees: res.data.results });
-                })
-                .catch(err => console.log(err));
+            this.setState({ employees: res.data.results })
         }
     };
 
     handleInputChange = event => {
         this.setState({ search: event.target.value });
+        this.setState({ isFiltered: true });
     };
 
     handleFormSubmit = event => {
         event.preventDefault();
-        this.setState({ isFiltered: true });
-        this.loadEmployees();
+        let searchedEmployee = this.state.search;
+        this.loadEmployees(searchedEmployee);
     };
 
     // function to render html for the table 
@@ -73,12 +68,12 @@ class Table extends Component {
                     handleInputChange={this.handleInputChange}
                     employeeData={this.state.employees}
                 />
-                <div className="Table">
+                <div className="Table" id="table">
                     <table className="table">
                         <thead>
                             <tr>
                                 <th scope="col">Image</th>
-                                <th scope="col"><button onClick={() => { this.toggleSortByName() }}>Name</button>
+                                <th scope="col"><button id="nameBtn" onClick={() => { this.toggleSortByName() }}>Name</button>
                                 </th>
                                 <th scope="col">Email</th>
                                 <th scope="col">Phone</th>

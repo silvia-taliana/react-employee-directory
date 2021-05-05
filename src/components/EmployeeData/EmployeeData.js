@@ -1,5 +1,6 @@
 import React from "react";
-// import "./style.css";
+import "./style.css";
+import { format } from "date-fns";
 
 function sortName(a, b) {
     if (a.name.first < b.name.first) {
@@ -48,6 +49,16 @@ function renderEmployees(props) {
     //     return employee;
     // };
 
+    function formatDate(employee) {
+        var date = new Date(employee.dob.date);
+
+        var formattedDate = format(date, "MMMM do, yyyy");
+
+        console.log(formattedDate);
+        return formattedDate;
+    }
+
+
     return (
         <>
             {props.employeeData.sort(getSortFunction()).map(employee => (
@@ -56,13 +67,12 @@ function renderEmployees(props) {
                     <td>{employee.name.first + " " + employee.name.last}</td>
                     <td>{employee.email}</td>
                     <td>{employee.phone}</td>
-                    <td>{employee.dob.date}</td>
+                    <td>{formatDate(employee)}</td>
                 </tr >
             ))
             },
         </>
     )
 };
-
 
 export default renderEmployees;
