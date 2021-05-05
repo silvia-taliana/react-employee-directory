@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import API from "../utils/Api";
 import EmployeeData from "../EmployeeData/EmployeeData";
 import Search from "../Search/Searchbox";
-// import SearchResult from "../SearchResult/SearchResult";
 import "./style.css";
 
 class Table extends Component {
@@ -14,50 +13,60 @@ class Table extends Component {
         isFiltered: false,
     };
 
+    // function to toggle state for sorting employees
     toggleSortByName() {
-        // this.sortByName();
         this.setState({ isSorted: !this.state.isSorted })
     };
 
     // starts the loadEmployees function when the page loads
     componentDidMount() {
-        API.getAllEmployees()
-            .then(res => {
-                console.log(res);
-                this.loadEmployees(res);
-            })
-            .catch(err => console.log(err));
+        this.loadEmployees();
+        // API.getAllEmployees()
+        //     .then(res => {
+        //         console.log(res);
+        //         this.loadEmployees(res);
+        //     })
+        //     .catch(err => console.log(err));
     }
 
     // function to call required data from the api
     loadEmployees(res, searchedEmployee) {
-        console.log(searchedEmployee);
-        console.log(res);
-        if (this.state.isFiltered === true) {
-            const filteredEmployee = res.data.results.filter(function (employee) {
-                console.log(employee.name.first);
-                console.log(searchedEmployee);
-                return (employee.name.first.toLowerCase() === searchedEmployee.toLowerCase());
-            });
-            console.log(filteredEmployee);
-            // return filteredEmployee;
-            this.setState({ employees: filteredEmployee });
-        }
-        else {
-            this.setState({ employees: res.data.results })
-        }
+        API.getAllEmployees()
+            .then(res => {
+                this.setState({ employees: res.data.results })
+            })
+            .catch(err => console.log(err));
     };
+    // console.log(searchedEmployee);
+    //     console.log(res);
+    //     if (this.state.isFiltered === true) {
+    //         const filteredEmployee = res.data.results.filter(function (employee) {
+    //             console.log(employee.name.first);
+    //             console.log(searchedEmployee);
+    //             return (employee.name.first.toLowerCase() === searchedEmployee.toLowerCase());
+    //         });
+    //         console.log(filteredEmployee);
+    //         // return filteredEmployee;
+    //         this.setState({ employees: filteredEmployee });
+    //     }
+    //     else {
+    //         this.setState({ employees: res.data.results })
+    //     }
 
+    // setting state of search to new input 
     handleInputChange = event => {
         this.setState({ search: event.target.value });
-        this.setState({ isFiltered: true });
     };
+    // this.setState({ isFiltered: true });
 
+    // setting filtered state to true when search button is clicked
     handleFormSubmit = event => {
         event.preventDefault();
-        let searchedEmployee = this.state.search;
-        this.loadEmployees(searchedEmployee);
+        this.setState({ isFiltered: true });
+        console.log(this.state.search);
     };
+    // let searchedEmployee = this.state.search;
+    //     this.loadEmployees(searchedEmployee);
 
     // function to render html for the table 
     render() {

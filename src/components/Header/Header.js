@@ -1,6 +1,7 @@
 import React from "react";
 import "./style.css";
 
+// function to return header component
 function Header() {
     return (
         <div className="Header" id="header">

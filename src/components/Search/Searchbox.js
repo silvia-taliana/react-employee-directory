@@ -1,6 +1,7 @@
 import React from "react";
 import "./style.css";
 
+// function to return search box component
 function Searchbox(props) {
     return (
         <div className="Searchbox" id="searchBox">

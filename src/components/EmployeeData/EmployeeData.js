@@ -2,12 +2,14 @@ import React from "react";
 import "./style.css";
 import { format } from "date-fns";
 
+// sorting name A-Z
 function sortName(a, b) {
     if (a.name.first < b.name.first) {
         return -1;
     }
 };
 
+// sorting name Z-A
 function reverseSortName(a, b) {
     if (a.name.first > b.name.first) {
         return -1;
@@ -17,6 +19,7 @@ function reverseSortName(a, b) {
 // function to render each employee into EmployeeData component of table
 function renderEmployees(props) {
 
+    // sorting name based on state
     function getSortFunction() {
         if (props.sorted === true) {
             return sortName;
@@ -26,42 +29,34 @@ function renderEmployees(props) {
         }
     }
 
-    // function getFilterFunction() {
-    //     if (props.filtered === true) {
-    //         let name = props.employeeData.map(employee => {
-    //             return employee.name;
-    //         })
-    //         console.log(name);
-    //         return name.first === props.search.toLowerCase();
-    //     }
-    //     else {
-    //         return () => props.employeeData;
-    //     }
-    // }
+    // filtering table by employee name
+    function getFilterFunction() {
+        if (props.filtered === true) {
+            console.log(props.employeeData.name);
+            let filteredEmployee = props.employeeData.filter(function (employee) {
+                return employee.name.first.toLowerCase() === props.search.toLowerCase();
+            });
+            console.log(filteredEmployee);
+            return filteredEmployee;
+        }
+        else {
+            return () => props.employeeData;
+        }
+    }
 
-    // function filterByName() {
-    //     let employees = props.employeeData.map(employee => {
-    //         return employee.name;
-    //     });
-    //     const employee = employees.filter(function (name) {
-    //         return name.first === props.search.toLowerCase();
-    //     });
-    //     return employee;
-    // };
-
+    // formatting date of birth
     function formatDate(employee) {
         var date = new Date(employee.dob.date);
 
         var formattedDate = format(date, "MMMM do, yyyy");
 
-        console.log(formattedDate);
         return formattedDate;
     }
 
-
+    // returning employeeData component to table for each employee 
     return (
         <>
-            {props.employeeData.sort(getSortFunction()).map(employee => (
+            {props.employeeData.filter(getFilterFunction()).sort(getSortFunction()).map(employee => (
                 < tr key={employee.login.uuid}>
                     <td><img src={employee.picture.thumbnail} alt="profile"></img></td>
                     <td>{employee.name.first + " " + employee.name.last}</td>
