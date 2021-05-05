@@ -15,7 +15,6 @@ function reverseSortName(a, b) {
 
 // function to render each employee into EmployeeData component of table
 function renderEmployees(props) {
-    console.log(props.employeeData);
 
     function getSortFunction() {
         if (props.sorted === true) {
@@ -25,6 +24,29 @@ function renderEmployees(props) {
             return reverseSortName;
         }
     }
+
+    // function getFilterFunction() {
+    //     if (props.filtered === true) {
+    //         let name = props.employeeData.map(employee => {
+    //             return employee.name;
+    //         })
+    //         console.log(name);
+    //         return name.first === props.search.toLowerCase();
+    //     }
+    //     else {
+    //         return () => props.employeeData;
+    //     }
+    // }
+
+    // function filterByName() {
+    //     let employees = props.employeeData.map(employee => {
+    //         return employee.name;
+    //     });
+    //     const employee = employees.filter(function (name) {
+    //         return name.first === props.search.toLowerCase();
+    //     });
+    //     return employee;
+    // };
 
     return (
         <>
