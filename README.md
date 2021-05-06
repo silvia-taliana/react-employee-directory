@@ -3,7 +3,7 @@
 ![badge](https://img.shields.io/badge/License-MIT-Green)
 
 ## Description
-The aim of this project was to create an employee directory using react. To view this project, click [here]().
+The aim of this project was to create an employee directory using react. To view this project, click [here](https://silvia-taliana.github.io/react-employee-directory/).
 
 ## Table of Contents 
 
