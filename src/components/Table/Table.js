@@ -21,12 +21,6 @@ class Table extends Component {
     // starts the loadEmployees function when the page loads
     componentDidMount() {
         this.loadEmployees();
-        // API.getAllEmployees()
-        //     .then(res => {
-        //         console.log(res);
-        //         this.loadEmployees(res);
-        //     })
-        //     .catch(err => console.log(err));
     }
 
     // function to call required data from the api
@@ -37,27 +31,11 @@ class Table extends Component {
             })
             .catch(err => console.log(err));
     };
-    // console.log(searchedEmployee);
-    //     console.log(res);
-    //     if (this.state.isFiltered === true) {
-    //         const filteredEmployee = res.data.results.filter(function (employee) {
-    //             console.log(employee.name.first);
-    //             console.log(searchedEmployee);
-    //             return (employee.name.first.toLowerCase() === searchedEmployee.toLowerCase());
-    //         });
-    //         console.log(filteredEmployee);
-    //         // return filteredEmployee;
-    //         this.setState({ employees: filteredEmployee });
-    //     }
-    //     else {
-    //         this.setState({ employees: res.data.results })
-    //     }
 
     // setting state of search to new input 
     handleInputChange = event => {
         this.setState({ search: event.target.value });
     };
-    // this.setState({ isFiltered: true });
 
     // setting filtered state to true when search button is clicked
     handleFormSubmit = event => {
@@ -65,8 +43,6 @@ class Table extends Component {
         this.setState({ isFiltered: true });
         console.log(this.state.search);
     };
-    // let searchedEmployee = this.state.search;
-    //     this.loadEmployees(searchedEmployee);
 
     // function to render html for the table 
     render() {
@@ -75,7 +51,6 @@ class Table extends Component {
                 <Search
                     handleFormSubmit={this.handleFormSubmit}
                     handleInputChange={this.handleInputChange}
-                    employeeData={this.state.employees}
                 />
                 <div className="Table" id="table">
                     <table className="table">

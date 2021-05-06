@@ -29,21 +29,6 @@ function renderEmployees(props) {
         }
     }
 
-    // filtering table by employee name
-    function getFilterFunction() {
-        if (props.filtered === true) {
-            console.log(props.employeeData.name);
-            let filteredEmployee = props.employeeData.filter(function (employee) {
-                return employee.name.first.toLowerCase() === props.search.toLowerCase();
-            });
-            console.log(filteredEmployee);
-            return filteredEmployee;
-        }
-        else {
-            return () => props.employeeData;
-        }
-    }
-
     // formatting date of birth
     function formatDate(employee) {
         var date = new Date(employee.dob.date);
@@ -56,7 +41,10 @@ function renderEmployees(props) {
     // returning employeeData component to table for each employee 
     return (
         <>
-            {props.employeeData.filter(getFilterFunction()).sort(getSortFunction()).map(employee => (
+            {props.employeeData.filter(function (employee) {
+                if (!props.filtered) return true
+                return employee.name.first.toLowerCase() === props.search.toLowerCase();
+            }).sort(getSortFunction()).map(employee => (
                 < tr key={employee.login.uuid}>
                     <td><img src={employee.picture.thumbnail} alt="profile"></img></td>
                     <td>{employee.name.first + " " + employee.name.last}</td>
@@ -65,7 +53,7 @@ function renderEmployees(props) {
                     <td>{formatDate(employee)}</td>
                 </tr >
             ))
-            },
+            }
         </>
     )
 };
